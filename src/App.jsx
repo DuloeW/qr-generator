@@ -1,26 +1,37 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import QRCode from 'qrcode.react';
 
 function App() {
   const [jsonData, setJsonData] = useState({
     // Data JSON Anda
-    name: 'John Doe',
-    age: 25,
+    nama: 'John Doe',
+    umur: 25,
     // ... tambahkan data JSON lainnya
   });
 
+  useEffect(() => {
+    console.log(jsonData)
+  }, [jsonData])
+
   const jsonString = JSON.stringify(jsonData);
+
+  const handleOnChnage = (e) => {
+    setJsonData(prev => ({
+      ...prev,
+      [e.target.name] : [e.target.value]
+    }))
+  }
 
   return (
     <>
       <div>
-        <label></label>
-        <input/>
+        <label>Nama</label>
+        <input type='text' name='nama' onChange={(e => handleOnChnage(e))}/>
       </div>
       <div>
-        <label></label>
-        <input/>
+        <label>Umur</label>
+        <input type='text' name='umur' onChange={(e => handleOnChnage(e))}/>
       </div>
 
       <div>
